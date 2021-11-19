@@ -153,44 +153,46 @@ help_string_telegraph = f'''<br>
 <br><br>
 <b>/{BotCommands.StatsCommand}</b>: Show Stats of the machine the bot is hosted on
 '''
-help = Telegraph(access_token=telegraph_token).create_page(
-        title='Slam Mirrorbot Help',
-        author_name='Slam Mirrorbot',
-        author_url='https://github.com/SlamDevs/slam-mirrorbot',
-        html_content=help_string_telegraph,
-    )["path"]
+
 
 help_string = f'''
-/{BotCommands.PingCommand}: Check how long it takes to Ping the Bot
+/{BotCommands.LeechCommand}: Загрузить торрент/прямая ссылка
 
-/{BotCommands.AuthorizeCommand}: Authorize a chat or a user to use the bot (Can only be invoked by Owner & Sudo of the bot)
+/{BotCommands.ZipLeechCommand}: Загрузить торрент/прямая ссылка и залить как .zip
 
-/{BotCommands.UnAuthorizeCommand}: Unauthorize a chat or a user to use the bot (Can only be invoked by Owner & Sudo of the bot)
+/{BotCommands.UnzipLeechCommand}: Загрузить торрент/прямая ссылка и распаковать
 
-/{BotCommands.AuthorizedUsersCommand}: Show authorized users (Only Owner & Sudo)
+/{BotCommands.QbLeechCommand}: Загрузить торрент/magnet используя qBittorrent
 
-/{BotCommands.AddSudoCommand}: Add sudo user (Only Owner)
+/{BotCommands.QbZipLeechCommand}: Загрузить торрент/magnet и залить как .zip через qB
 
-/{BotCommands.RmSudoCommand}: Remove sudo users (Only Owner)
+/{BotCommands.QbUnzipLeechCommand}: Загрузить торрент и распаковать через qB
 
-/{BotCommands.RestartCommand}: Restart the bot
+/{BotCommands.LeechWatchCommand}: Загрузить через Youtube-dl поддерживаемых ссылок (YT,VK,OK,FB)
 
-/{BotCommands.LogCommand}: Get a log file of the bot. Handy for getting crash reports
+/{BotCommands.LeechZipWatchCommand}: Загрузить Youtube плейлист и залить как .zip
 
-/{BotCommands.SpeedCommand}: Check Internet Speed of the Host
+/{BotCommands.LeechSetCommand}: Настройки загрузки
 
-/{BotCommands.ShellCommand}: Run commands in Shell (Only Owner)
+/{BotCommands.SetThumbCommand}: Установить обложку
 
-/{BotCommands.ExecHelpCommand}: Get help for Executor module (Only Owner)
+/{BotCommands.StatusCommand}: Узнать статус всех загрузок
 
-/{BotCommands.TsHelpCommand}: Get help for Torrent search module
+/{BotCommands.CancelMirror}: Отменить запрос
+
+/{BotCommands.CancelAllCommand}: Отменить все запросы
+
+/{BotCommands.LogCommand}: Получить лог по боту [owner/sudo only]
+
+/{BotCommands.ShellCommand}: Запустить комманды в Shell [owner only]
+
+/{BotCommands.RestartCommand}: Перезапуск бота [owner/sudo only]
+
+/{BotCommands.StatsCommand}: Статистика использования бота
+
+/{BotCommands.PingCommand}: Ping бота
 '''
 
-def bot_help(update, context):
-    button = button_build.ButtonMaker()
-    button.buildbutton("Other Commands", f"https://telegra.ph/{help}")
-    reply_markup = InlineKeyboardMarkup(button.build_menu(1))
-    sendMarkup(help_string, context.bot, update, reply_markup)
 
 '''
 botcmds = [
