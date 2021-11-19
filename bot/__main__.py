@@ -50,13 +50,13 @@ def start(update, context):
     reply_markup = InlineKeyboardMarkup(buttons.build_menu(2))
     if CustomFilters.authorized_user(update) or CustomFilters.authorized_chat(update):
         start_string = f'''
-This bot can mirror all your links to Google Drive!
-Type /{BotCommands.HelpCommand} to get a list of available commands
+Мы архивируем интернет.\nВступай к нам в базу: https://t.me/ksi_archive
+Пропиши /{BotCommands.HelpCommand} чтоб получить список доступных команд
 '''
         sendMarkup(start_string, context.bot, update, reply_markup)
     else:
         sendMarkup(
-            'Oops! not a Authorized user.\nPlease deploy your own <b>slam-mirrorbot</b>.',
+            'Чувак, ты думал здесь что-то будет??.\nОоо, нет...',
             context.bot,
             update,
             reply_markup,
