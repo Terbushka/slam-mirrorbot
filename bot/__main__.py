@@ -153,7 +153,12 @@ help_string_telegraph = f'''<br>
 <br><br>
 <b>/{BotCommands.StatsCommand}</b>: Show Stats of the machine the bot is hosted on
 '''
-
+help = Telegraph(access_token=telegraph_token).create_page(
+        title='Slam Mirrorbot Help',
+        author_name='Slam Mirrorbot',
+        author_url='https://github.com/SlamDevs/slam-mirrorbot',
+        html_content=help_string_telegraph,
+    )["path"]
 
 help_string = f'''
 /{BotCommands.LeechCommand}: Загрузить торрент/прямая ссылка
@@ -191,8 +196,14 @@ help_string = f'''
 /{BotCommands.StatsCommand}: Статистика использования бота
 
 /{BotCommands.PingCommand}: Ping бота
+
 '''
 
+def bot_help(update, context):
+    button = button_build.ButtonMaker()
+    button.buildbutton("Other Commands", f"https://telegra.ph/{help}")
+    reply_markup = InlineKeyboardMarkup(button.build_menu(1))
+    sendMarkup(help_string, context.bot, update, reply_markup)
 
 '''
 botcmds = [
@@ -249,7 +260,7 @@ def main():
     restart_handler = CommandHandler(BotCommands.RestartCommand, restart,
                                      filters=CustomFilters.owner_filter | CustomFilters.sudo_user, run_async=True)
     help_handler = CommandHandler(BotCommands.HelpCommand,
-                                  filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
+                                  bot_help, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
     stats_handler = CommandHandler(BotCommands.StatsCommand,
                                    stats, filters=CustomFilters.authorized_chat | CustomFilters.authorized_user, run_async=True)
     log_handler = CommandHandler(BotCommands.LogCommand, log, filters=CustomFilters.owner_filter | CustomFilters.sudo_user, run_async=True)
